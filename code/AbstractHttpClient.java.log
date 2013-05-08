@@ -1,0 +1,180 @@
+134,135d133
+< 	//mobileDomains: the package name of the app which create the HttpClient
+< 	String pkgName = null;
+148,156d145
+< 
+< 		//mobileDomains: assumed fix for Dropbox app on header-attaching issue
+< 		pkgName = Thread.currentThread().getThreadGroup().getPackageName();
+< 		if (pkgName != null) {
+< 			String appOrigin = "app://"+pkgName;
+< 			if (appOrigin.compareTo("app://com.dropbox.android") == 0) { //it is Dropbox app
+< 				setAllowedOrigins("https://api-d.dropbox.com,https://api.dropbox.com");
+< 			}
+< 		}
+523,532d511
+< 	/** 
+<      * mobileDomains: 
+<      *@hide  should be public to app developers when released
+<      */
+<     public void setAllowedOrigins(String allowedOrigins) {
+< 		if (pkgName != null && allowedOrigins != null) {
+< 			String targetOrigin = "app://"+pkgName;
+< 			Thread.setOriginPolicy(Thread.SPECIFY_RECIPIENT_ORIGINS_HTTPCLIENT,targetOrigin,allowedOrigins,"");
+< 		}
+<     }
+546,563d524
+< 		//mobileDomains:
+< 		if (pkgName == null) pkgName = Thread.currentThread().getThreadGroup().getPackageName();
+< 
+< 		if (pkgName != null) {
+< 			String senderOrigin = "app://"+pkgName;
+< 			URI requestURI = ((HttpUriRequest)request).getURI();
+< 			System.err.println("mobileDomains:AbstractHttpClient::execute(url='"+requestURI.toString()+"') is called at "+System.nanoTime());
+< 			String recipientOrigin = requestURI.getScheme()+"://"+requestURI.getHost();
+< 			if (!Thread.checkOriginPolicy(Thread.CHECK_RECIPIENT_HTTPCLIENT,senderOrigin,recipientOrigin,"")) {
+< 				if (Thread.debugForMobileDomains) throw new IllegalArgumentException("mobileDomains: message from "+senderOrigin+" to "+recipientOrigin+" should be blocked according to sender policy");
+< 			}
+< 			System.err.println("mobileDomains:AbstractHttpClient::checkOriginPolicy ends at "+System.nanoTime());
+< 		} else {
+< 			URI requestURI = ((HttpUriRequest)request).getURI();
+< 			String url = requestURI.toString();
+< 			if (Thread.debugForMobileDomains) throw new IllegalArgumentException("mobileDomains: AbstractHttpClient::pkgName must not be null. url="+url);
+< 		}
+< 
+593,602c554
+< 		//mobileDomains:
+< 		try {
+<             HttpResponse response = director.execute(target, request, execContext);
+< 			System.err.println("mobileDomains:AbstractHttpClient::response received at "+System.nanoTime());
+< 			//todo: retrieve header from response, and check whether there is "mobile-allowed-origins" header
+< 			return response;
+<         } catch(HttpException httpException) {
+<             throw new ClientProtocolException(httpException);
+<         }
+<         /*try {
+---
+>         try {
+606c558
+<         }*/
+---
+>         }
+134,135d133
+< 	//mobileDomains: the package name of the app which create the HttpClient
+< 	String pkgName = null;
+148,156d145
+< 
+< 		//mobileDomains: assumed fix for Dropbox app on header-attaching issue
+< 		pkgName = Thread.currentThread().getThreadGroup().getPackageName();
+< 		if (pkgName != null) {
+< 			String appOrigin = "app://"+pkgName;
+< 			if (appOrigin.compareTo("app://com.dropbox.android") == 0) { //it is Dropbox app
+< 				setAllowedOrigins("https://api-d.dropbox.com,https://api.dropbox.com");
+< 			}
+< 		}
+523,532d511
+< 	/** 
+<      * mobileDomains: 
+<      *@hide  should be public to app developers when released
+<      */
+<     public void setAllowedOrigins(String allowedOrigins) {
+< 		if (pkgName != null && allowedOrigins != null) {
+< 			String targetOrigin = "app://"+pkgName;
+< 			Thread.setOriginPolicy(Thread.SPECIFY_RECIPIENT_ORIGINS_HTTPCLIENT,targetOrigin,allowedOrigins,"");
+< 		}
+<     }
+546,563d524
+< 		//mobileDomains:
+< 		if (pkgName == null) pkgName = Thread.currentThread().getThreadGroup().getPackageName();
+< 
+< 		if (pkgName != null) {
+< 			String senderOrigin = "app://"+pkgName;
+< 			URI requestURI = ((HttpUriRequest)request).getURI();
+< 			System.err.println("mobileDomains:AbstractHttpClient::execute(url='"+requestURI.toString()+"') is called at "+System.nanoTime());
+< 			String recipientOrigin = requestURI.getScheme()+"://"+requestURI.getHost();
+< 			if (!Thread.checkOriginPolicy(Thread.CHECK_RECIPIENT_HTTPCLIENT,senderOrigin,recipientOrigin,"")) {
+< 				if (Thread.debugForMobileDomains) throw new IllegalArgumentException("mobileDomains: message from "+senderOrigin+" to "+recipientOrigin+" should be blocked according to sender policy");
+< 			}
+< 			System.err.println("mobileDomains:AbstractHttpClient::checkOriginPolicy ends at "+System.nanoTime());
+< 		} else {
+< 			URI requestURI = ((HttpUriRequest)request).getURI();
+< 			String url = requestURI.toString();
+< 			if (Thread.debugForMobileDomains) throw new IllegalArgumentException("mobileDomains: AbstractHttpClient::pkgName must not be null. url="+url);
+< 		}
+< 
+593,602c554
+< 		//mobileDomains:
+< 		try {
+<             HttpResponse response = director.execute(target, request, execContext);
+< 			System.err.println("mobileDomains:AbstractHttpClient::response received at "+System.nanoTime());
+< 			//todo: retrieve header from response, and check whether there is "mobile-allowed-origins" header
+< 			return response;
+<         } catch(HttpException httpException) {
+<             throw new ClientProtocolException(httpException);
+<         }
+<         /*try {
+---
+>         try {
+606c558
+<         }*/
+---
+>         }
+134,135d133
+< 	//mobileDomains: the package name of the app which create the HttpClient
+< 	String pkgName = null;
+148,156d145
+< 
+< 		//mobileDomains: assumed fix for Dropbox app on header-attaching issue
+< 		pkgName = Thread.currentThread().getThreadGroup().getPackageName();
+< 		if (pkgName != null) {
+< 			String appOrigin = "app://"+pkgName;
+< 			if (appOrigin.compareTo("app://com.dropbox.android") == 0) { //it is Dropbox app
+< 				setAllowedOrigins("https://api-d.dropbox.com,https://api.dropbox.com");
+< 			}
+< 		}
+523,532d511
+< 	/** 
+<      * mobileDomains: 
+<      *@hide  should be public to app developers when released
+<      */
+<     public void setAllowedOrigins(String allowedOrigins) {
+< 		if (pkgName != null && allowedOrigins != null) {
+< 			String targetOrigin = "app://"+pkgName;
+< 			Thread.setOriginPolicy(Thread.SPECIFY_RECIPIENT_ORIGINS_HTTPCLIENT,targetOrigin,allowedOrigins,"");
+< 		}
+<     }
+546,563d524
+< 		//mobileDomains:
+< 		if (pkgName == null) pkgName = Thread.currentThread().getThreadGroup().getPackageName();
+< 
+< 		if (pkgName != null) {
+< 			String senderOrigin = "app://"+pkgName;
+< 			URI requestURI = ((HttpUriRequest)request).getURI();
+< 			System.err.println("mobileDomains:AbstractHttpClient::execute(url='"+requestURI.toString()+"') is called at "+System.nanoTime());
+< 			String recipientOrigin = requestURI.getScheme()+"://"+requestURI.getHost();
+< 			if (!Thread.checkOriginPolicy(Thread.CHECK_RECIPIENT_HTTPCLIENT,senderOrigin,recipientOrigin,"")) {
+< 				if (Thread.debugForMobileDomains) throw new IllegalArgumentException("mobileDomains: message from "+senderOrigin+" to "+recipientOrigin+" should be blocked according to sender policy");
+< 			}
+< 			System.err.println("mobileDomains:AbstractHttpClient::checkOriginPolicy ends at "+System.nanoTime());
+< 		} else {
+< 			URI requestURI = ((HttpUriRequest)request).getURI();
+< 			String url = requestURI.toString();
+< 			if (Thread.debugForMobileDomains) throw new IllegalArgumentException("mobileDomains: AbstractHttpClient::pkgName must not be null. url="+url);
+< 		}
+< 
+593,602c554
+< 		//mobileDomains:
+< 		try {
+<             HttpResponse response = director.execute(target, request, execContext);
+< 			System.err.println("mobileDomains:AbstractHttpClient::response received at "+System.nanoTime());
+< 			//todo: retrieve header from response, and check whether there is "mobile-allowed-origins" header
+< 			return response;
+<         } catch(HttpException httpException) {
+<             throw new ClientProtocolException(httpException);
+<         }
+<         /*try {
+---
+>         try {
+606c558
+<         }*/
+---
+>         }

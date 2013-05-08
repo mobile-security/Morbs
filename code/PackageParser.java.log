@@ -1,0 +1,219 @@
+77,79d76
+< 	//mobileDomains: package name
+< 	private String pkgName = "";
+< 
+917,920c914
+< 		//mobileDomains: make pkgName global in order for our code to access
+<         //String pkgName = parsePackageName(parser, attrs, flags, outError);
+< 		pkgName = parsePackageName(parser, attrs, flags, outError);
+< 
+---
+>         String pkgName = parsePackageName(parser, attrs, flags, outError);
+2108,2115d2101
+< 		//mobileDomains: add support for "android:allowedOrigins" property in <Activity> tag
+< 		String allowedOrigins = sa.getNonConfigurationString(
+<                 com.android.internal.R.styleable.AndroidManifestActivity_allowedOrigins, 0);
+< 		if (allowedOrigins != null) {
+< 			a.info.allowedSenderOrigins = allowedOrigins;
+< 			Log.d("mobileDomains","PackageParser:: set origin policy for Activity "+a.info.name);
+< 		}	
+< 
+2257,2259c2243
+< 				//modileDomains: add one more argument to parseIntent: the activity
+<                 //if (!parseIntent(res, parser, attrs, flags, intent, outError, !receiver)) {
+< 				if (!parseIntent(res, parser, attrs, flags, intent, outError, !receiver,a)) {
+---
+>                 if (!parseIntent(res, parser, attrs, flags, intent, outError, !receiver)) {
+2432,2435c2416
+< 
+< 				//modileDomains: add one more argument to parseIntent: the activity
+<                 //if (!parseIntent(res, parser, attrs, flags, intent, outError, true)) {
+<                 if (!parseIntent(res, parser, attrs, flags, intent, outError, true,a)) {
+---
+>                 if (!parseIntent(res, parser, attrs, flags, intent, outError, true)) {
+2859,2862c2840
+< 				
+< 				//modileDomains: add one more argument to parseIntent: the activity. todo: add support for service
+<                 //if (!parseIntent(res, parser, attrs, flags, intent, outError, false)) {
+<                 if (!parseIntent(res, parser, attrs, flags, intent, outError, false,null)) {
+---
+>                 if (!parseIntent(res, parser, attrs, flags, intent, outError, false)) {
+3054c3032
+<             IntentInfo outInfo, String[] outError, boolean isActivity, Activity a)
+---
+>             IntentInfo outInfo, String[] outError, boolean isActivity)
+3138,3161d3115
+< 				//mobileDomains: obtain origin policy for scheme
+< 				if (str != null) { //scheme exists
+< 					str = str.trim();
+< 					if (a != null && !str.isEmpty()) { //only handle for <activity> tag
+< 						String scheme = str;
+< 				    	if (host != null && (scheme.compareTo("http")==0 || scheme.compareTo("https")==0)) scheme = scheme + "://" + host; //when scheme is http or https, consider adding host and port
+< 
+< 						Log.d("mobileDomains","PackageParser:: set origin policy for scheme ["+scheme+"]");
+< 						String allowedOrigins = sa.getNonConfigurationString(
+<                     		com.android.internal.R.styleable.AndroidManifestData_allowedOrigins, 0);
+< 				    	if (allowedOrigins != null) {
+< 							Log.d("mobileDomains","PackageParser:: set origin policy ["+allowedOrigins+"] for scheme ["+scheme+"]");
+< 							a.info.allowedSenderOriginsForScheme.putString(scheme,allowedOrigins);
+< 						}
+< 
+< 						if (pkgName != null && pkgName.length() > 0) {
+< 							if (!pkgName.startsWith("com.android")) { //package name starting with "com.android" is system app, we don't record them
+< 								Log.d("mobileDomains","PackageParser:: schemeToApp(scheme="+scheme+",pkgName="+pkgName);
+< 								PackageManager.schemeToApp.putString(scheme,pkgName);
+< 							}
+< 						}
+< 					}
+< 				}
+< 
+3163c3117
+<                     com.android.internal.R.styleable.AndroidManifestData_path, 0);
+---
+>                         com.android.internal.R.styleable.AndroidManifestData_path, 0);
+77,79d76
+< 	//mobileDomains: package name
+< 	private String pkgName = "";
+< 
+917,920c914
+< 		//mobileDomains: make pkgName global in order for our code to access
+<         //String pkgName = parsePackageName(parser, attrs, flags, outError);
+< 		pkgName = parsePackageName(parser, attrs, flags, outError);
+< 
+---
+>         String pkgName = parsePackageName(parser, attrs, flags, outError);
+2108,2115d2101
+< 		//mobileDomains: add support for "android:allowedOrigins" property in <Activity> tag
+< 		String allowedOrigins = sa.getNonConfigurationString(
+<                 com.android.internal.R.styleable.AndroidManifestActivity_allowedOrigins, 0);
+< 		if (allowedOrigins != null) {
+< 			a.info.allowedSenderOrigins = allowedOrigins;
+< 			Log.d("mobileDomains","PackageParser:: set origin policy for Activity "+a.info.name);
+< 		}	
+< 
+2257,2259c2243
+< 				//modileDomains: add one more argument to parseIntent: the activity
+<                 //if (!parseIntent(res, parser, attrs, flags, intent, outError, !receiver)) {
+< 				if (!parseIntent(res, parser, attrs, flags, intent, outError, !receiver,a)) {
+---
+>                 if (!parseIntent(res, parser, attrs, flags, intent, outError, !receiver)) {
+2432,2435c2416
+< 
+< 				//modileDomains: add one more argument to parseIntent: the activity
+<                 //if (!parseIntent(res, parser, attrs, flags, intent, outError, true)) {
+<                 if (!parseIntent(res, parser, attrs, flags, intent, outError, true,a)) {
+---
+>                 if (!parseIntent(res, parser, attrs, flags, intent, outError, true)) {
+2859,2862c2840
+< 				
+< 				//modileDomains: add one more argument to parseIntent: the activity. todo: add support for service
+<                 //if (!parseIntent(res, parser, attrs, flags, intent, outError, false)) {
+<                 if (!parseIntent(res, parser, attrs, flags, intent, outError, false,null)) {
+---
+>                 if (!parseIntent(res, parser, attrs, flags, intent, outError, false)) {
+3054c3032
+<             IntentInfo outInfo, String[] outError, boolean isActivity, Activity a)
+---
+>             IntentInfo outInfo, String[] outError, boolean isActivity)
+3138,3161d3115
+< 				//mobileDomains: obtain origin policy for scheme
+< 				if (str != null) { //scheme exists
+< 					str = str.trim();
+< 					if (a != null && !str.isEmpty()) { //only handle for <activity> tag
+< 						String scheme = str;
+< 				    	if (host != null && (scheme.compareTo("http")==0 || scheme.compareTo("https")==0)) scheme = scheme + "://" + host; //when scheme is http or https, consider adding host and port
+< 
+< 						Log.d("mobileDomains","PackageParser:: set origin policy for scheme ["+scheme+"]");
+< 						String allowedOrigins = sa.getNonConfigurationString(
+<                     		com.android.internal.R.styleable.AndroidManifestData_allowedOrigins, 0);
+< 				    	if (allowedOrigins != null) {
+< 							Log.d("mobileDomains","PackageParser:: set origin policy ["+allowedOrigins+"] for scheme ["+scheme+"]");
+< 							a.info.allowedSenderOriginsForScheme.putString(scheme,allowedOrigins);
+< 						}
+< 
+< 						if (pkgName != null && pkgName.length() > 0) {
+< 							if (!pkgName.startsWith("com.android")) { //package name starting with "com.android" is system app, we don't record them
+< 								Log.d("mobileDomains","PackageParser:: schemeToApp(scheme="+scheme+",pkgName="+pkgName);
+< 								PackageManager.schemeToApp.putString(scheme,pkgName);
+< 							}
+< 						}
+< 					}
+< 				}
+< 
+3163c3117
+<                     com.android.internal.R.styleable.AndroidManifestData_path, 0);
+---
+>                         com.android.internal.R.styleable.AndroidManifestData_path, 0);
+77,79d76
+< 	//mobileDomains: package name
+< 	private String pkgName = "";
+< 
+917,920c914
+< 		//mobileDomains: make pkgName global in order for our code to access
+<         //String pkgName = parsePackageName(parser, attrs, flags, outError);
+< 		pkgName = parsePackageName(parser, attrs, flags, outError);
+< 
+---
+>         String pkgName = parsePackageName(parser, attrs, flags, outError);
+2108,2115d2101
+< 		//mobileDomains: add support for "android:allowedOrigins" property in <Activity> tag
+< 		String allowedOrigins = sa.getNonConfigurationString(
+<                 com.android.internal.R.styleable.AndroidManifestActivity_allowedOrigins, 0);
+< 		if (allowedOrigins != null) {
+< 			a.info.allowedSenderOrigins = allowedOrigins;
+< 			Log.d("mobileDomains","PackageParser:: set origin policy for Activity "+a.info.name);
+< 		}	
+< 
+2257,2259c2243
+< 				//modileDomains: add one more argument to parseIntent: the activity
+<                 //if (!parseIntent(res, parser, attrs, flags, intent, outError, !receiver)) {
+< 				if (!parseIntent(res, parser, attrs, flags, intent, outError, !receiver,a)) {
+---
+>                 if (!parseIntent(res, parser, attrs, flags, intent, outError, !receiver)) {
+2432,2435c2416
+< 
+< 				//modileDomains: add one more argument to parseIntent: the activity
+<                 //if (!parseIntent(res, parser, attrs, flags, intent, outError, true)) {
+<                 if (!parseIntent(res, parser, attrs, flags, intent, outError, true,a)) {
+---
+>                 if (!parseIntent(res, parser, attrs, flags, intent, outError, true)) {
+2859,2862c2840
+< 				
+< 				//modileDomains: add one more argument to parseIntent: the activity. todo: add support for service
+<                 //if (!parseIntent(res, parser, attrs, flags, intent, outError, false)) {
+<                 if (!parseIntent(res, parser, attrs, flags, intent, outError, false,null)) {
+---
+>                 if (!parseIntent(res, parser, attrs, flags, intent, outError, false)) {
+3054c3032
+<             IntentInfo outInfo, String[] outError, boolean isActivity, Activity a)
+---
+>             IntentInfo outInfo, String[] outError, boolean isActivity)
+3138,3161d3115
+< 				//mobileDomains: obtain origin policy for scheme
+< 				if (str != null) { //scheme exists
+< 					str = str.trim();
+< 					if (a != null && !str.isEmpty()) { //only handle for <activity> tag
+< 						String scheme = str;
+< 				    	if (host != null && (scheme.compareTo("http")==0 || scheme.compareTo("https")==0)) scheme = scheme + "://" + host; //when scheme is http or https, consider adding host and port
+< 
+< 						Log.d("mobileDomains","PackageParser:: set origin policy for scheme ["+scheme+"]");
+< 						String allowedOrigins = sa.getNonConfigurationString(
+<                     		com.android.internal.R.styleable.AndroidManifestData_allowedOrigins, 0);
+< 				    	if (allowedOrigins != null) {
+< 							Log.d("mobileDomains","PackageParser:: set origin policy ["+allowedOrigins+"] for scheme ["+scheme+"]");
+< 							a.info.allowedSenderOriginsForScheme.putString(scheme,allowedOrigins);
+< 						}
+< 
+< 						if (pkgName != null && pkgName.length() > 0) {
+< 							if (!pkgName.startsWith("com.android")) { //package name starting with "com.android" is system app, we don't record them
+< 								Log.d("mobileDomains","PackageParser:: schemeToApp(scheme="+scheme+",pkgName="+pkgName);
+< 								PackageManager.schemeToApp.putString(scheme,pkgName);
+< 							}
+< 						}
+< 					}
+< 				}
+< 
+3163c3117
+<                     com.android.internal.R.styleable.AndroidManifestData_path, 0);
+---
+>                         com.android.internal.R.styleable.AndroidManifestData_path, 0);

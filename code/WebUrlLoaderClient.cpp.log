@@ -1,0 +1,76 @@
+385,411c385
+< 
+< 	//mobileDomains: This is the place to receive the response headers. check the header of the response
+< 	std::string allowedOrigins, location;
+< 	m_response->getHeader("mobile-allowed-origins", &allowedOrigins);
+< 
+< 	//assumed fix for fbconnect scheme issue
+< 	if (m_request->getUrl().find("m.facebook.com") >= 0) {
+< 		allowedOrigins = "app://com.facebook.katana";
+< 	}
+< 
+< 	if (allowedOrigins.size() > 0) {
+< 		allowedOrigins = "mobile-allowed-origins:" + m_request->getUrl() + "->" + allowedOrigins;
+< 		m_webFrame->didReceiveData(allowedOrigins.c_str(), allowedOrigins.size());
+< 	}
+< 
+< 	m_response->getHeader("Location", &location);
+< 	if (location.size() > 0) {
+< 		location = "Location:" + m_request->getUrl() + "->" + location;
+< 		m_webFrame->didReceiveData(location.c_str(), location.size());
+< 	}
+< }
+< 
+< //mobileDomains:
+< /*void WebUrlLoaderClient::setReceivedRedirect() {
+< 	std::string s = "Location:xxx";	
+< 	m_webFrame->didReceiveData(s.c_str(), s.size());
+< }*/
+---
+> }
+419,425d392
+< 	//mobileDomains: This is the replace to receive the response body. check the response body. currently only analyze Facebook response traffic. It will be generic
+< 	if (size < 1000) { //Facebook response is only 530 bytes
+< 		std::string responseBody = buf->data();
+< 		std::string response = "Response:" + m_request->getUrl() + "->" + responseBody;
+< 		m_webFrame->didReceiveData(response.c_str(), response.size());
+< 	}
+< 
+385,411c385
+< 
+< 	//mobileDomains: This is the place to receive the response headers. check the header of the response
+< 	std::string allowedOrigins, location;
+< 	m_response->getHeader("mobile-allowed-origins", &allowedOrigins);
+< 
+< 	//assumed fix for fbconnect scheme issue
+< 	if (m_request->getUrl().find("m.facebook.com") >= 0) {
+< 		allowedOrigins = "app://com.facebook.katana";
+< 	}
+< 
+< 	if (allowedOrigins.size() > 0) {
+< 		allowedOrigins = "mobile-allowed-origins:" + m_request->getUrl() + "->" + allowedOrigins;
+< 		m_webFrame->didReceiveData(allowedOrigins.c_str(), allowedOrigins.size());
+< 	}
+< 
+< 	m_response->getHeader("Location", &location);
+< 	if (location.size() > 0) {
+< 		location = "Location:" + m_request->getUrl() + "->" + location;
+< 		m_webFrame->didReceiveData(location.c_str(), location.size());
+< 	}
+< }
+< 
+< //mobileDomains:
+< /*void WebUrlLoaderClient::setReceivedRedirect() {
+< 	std::string s = "Location:xxx";	
+< 	m_webFrame->didReceiveData(s.c_str(), s.size());
+< }*/
+---
+> }
+419,425d392
+< 	//mobileDomains: This is the replace to receive the response body. check the response body. currently only analyze Facebook response traffic. It will be generic
+< 	if (size < 1000) { //Facebook response is only 530 bytes
+< 		std::string responseBody = buf->data();
+< 		std::string response = "Response:" + m_request->getUrl() + "->" + responseBody;
+< 		m_webFrame->didReceiveData(response.c_str(), response.size());
+< 	}
+< 

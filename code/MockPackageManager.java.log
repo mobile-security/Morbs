@@ -1,0 +1,42 @@
+79,91d78
+<     //mobileDomains: 
+<     /** @hide */
+<     @Override
+<     public void setOriginPolicy(int cmd,String targetOrigin,String allowedOrigins,String entryPoint) {
+<         throw new UnsupportedOperationException();
+<     }
+< 
+<     /** @hide */
+<     @Override
+<     public boolean checkOriginPolicy(int cmd,String senderOrigin,String recipientOrigin,String entryPoint) {
+< 	throw new UnsupportedOperationException();
+<     }
+< 
+79,91d78
+<     //mobileDomains: 
+<     /** @hide */
+<     @Override
+<     public void setOriginPolicy(int cmd,String targetOrigin,String allowedOrigins,String entryPoint) {
+<         throw new UnsupportedOperationException();
+<     }
+< 
+<     /** @hide */
+<     @Override
+<     public boolean checkOriginPolicy(int cmd,String senderOrigin,String recipientOrigin,String entryPoint) {
+< 	throw new UnsupportedOperationException();
+<     }
+< 
+79,91d78
+<     //mobileDomains: 
+<     /** @hide */
+<     @Override
+<     public void setOriginPolicy(int cmd,String targetOrigin,String allowedOrigins,String entryPoint) {
+<         throw new UnsupportedOperationException();
+<     }
+< 
+<     /** @hide */
+<     @Override
+<     public boolean checkOriginPolicy(int cmd,String senderOrigin,String recipientOrigin,String entryPoint) {
+< 	throw new UnsupportedOperationException();
+<     }
+< 

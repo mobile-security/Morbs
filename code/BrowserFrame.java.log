@@ -1,0 +1,333 @@
+19,26d18
+< //mobileDomains:
+< import android.content.pm.PackageManager;
+< import java.util.Timer;
+< import java.util.TimerTask;
+< import android.widget.Toast;
+< import android.app.AlertDialog;
+< import android.content.DialogInterface;
+< 
+1191,1222d1182
+< 	//mobileDomains: alert dialog
+< 	private void showAlert(String msg) {
+<         AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(mContext);
+< 
+<         // set title
+<         alertDialogBuilder.setTitle("");
+< 
+<         // set dialog message
+<         alertDialogBuilder
+<         .setMessage(msg)
+<         .setCancelable(false)
+<         .setPositiveButton("I got it",new DialogInterface.OnClickListener() {
+<             public void onClick(DialogInterface dialog,int id) {
+< 				// if this button is clicked, just close
+<                 // the dialog box and do nothing
+<                 dialog.cancel();
+<             }
+<         });
+<         /*.setNegativeButton("No",new DialogInterface.OnClickListener() {
+<             public void onClick(DialogInterface dialog,int id) {
+<                 // if this button is clicked, just close
+<                 // the dialog box and do nothing
+<                 dialog.cancel();
+<             }
+<         })*/
+< 
+<         // create alert dialog
+<         AlertDialog alertDialog = alertDialogBuilder.create();
+< 
+<         // show it
+<         alertDialog.show();
+<     }
+1227,1292c1187
+< 		//mobileDomains:
+< 		if (size > 0 && size < 1000) {
+< 			Log.d("mobileDomains","BrowserFrame::didReceiveData is called at "+System.currentTimeMillis());
+< 
+< 			String s = new String(data);
+< 			String senderOrigin = null,recipientOrigin = null;
+< 			PackageManager pm = mContext.getPackageManager();
+< 			if (s.startsWith("Location:")) { //it is Location header
+< 				int i = s.indexOf("->");
+< 				String url = s.substring("Location:".length(),i);
+< 				senderOrigin = Log.getSchmeAndHostFromURL(url);
+< 				recipientOrigin = Log.getSchmeAndHostFromURL(s.substring(i+2));
+< 			} else if (s.startsWith("Response:")) { //it is response body
+< 				int i = s.indexOf("->");
+< 				String url = s.substring("Response:".length(),i);
+< 				senderOrigin = Log.getSchmeAndHostFromURL(url);
+< 				String response = s.substring(i+2);
+< 				String start_sig = "window.location.href=\"";
+< 				i = response.indexOf(start_sig);
+< 				if (i >= 0) {
+< 					i += start_sig.length();
+< 					url = response.substring(i,response.indexOf("\"",i));
+< 					url = url.replace("\\/\\/","//");
+< 					Log.d("mobileDomains","BrowserFrame::redirect to "+url);
+< 					recipientOrigin = Log.getSchmeAndHostFromURL(url);
+< 				}
+< 			}
+< 			if (senderOrigin != null && recipientOrigin != null) {
+< 				String appOrigin = "app://" + mContext.getPackageName();
+< 				if (appOrigin.compareTo("app://com.android.browser") == 0) { //it is in browser
+< 					if (!pm.checkOriginPolicy(PackageManager.CHECK_RECIPIENT_WEB,senderOrigin,recipientOrigin,mContext.getPackageName())) { //policy check passed
+< 						//enforce the policy to block the message
+< 						/*mBlockMessages = true;
+< 						mCallbackProxy.blockMessages(true);
+< 						//Toast.makeText(mContext,"Access denied according to the origin policy of "+senderOrigin,Toast.LENGTH_LONG).show();
+< 						//showAlert("Access denied according to the origin policy of "+senderOrigin);
+< 						TimerTask task = new TimerTask() {
+< 							@Override
+< 							public void run() {
+< 								//stop blocking messages
+< 								mBlockMessages = false;
+< 								mCallbackProxy.blockMessages(false);
+< 							}
+< 						};
+< 						Timer timer = new Timer();
+< 						timer.schedule(task,2000);*/
+< 						//mCallbackProxy.onJsAlert("","Access denied according to the origin policy of "+senderOrigin);
+< 					}
+< 				}
+< 
+< 				Log.d("mobileDomains","BrowserFrame::didReceiveData checkOriginPolicy ends at "+System.currentTimeMillis());
+< 				return;
+< 			} else if (s.startsWith("mobile-allowed-origins:")) { //the header for origin policy is present
+< 				int i = s.indexOf("->");
+< 				String url = s.substring("mobile-allowed-origins:".length(),i);
+< 				senderOrigin = Log.getSchmeAndHostFromURL(url);
+< 				String allowedOrigins = s.substring(i+2);
+< 				pm.setOriginPolicy(PackageManager.SPECIFY_RECIPIENT_ORIGINS_WEB,senderOrigin,allowedOrigins,mContext.getPackageName()); //set policy. there is no need for entry point
+< 
+< 				Log.d("mobileDomains","BrowserFrame::didReceiveData setOriginPolicy ends at "+System.currentTimeMillis());
+< 				return;
+< 			}
+< 
+< 			Log.d("mobileDomains","BrowserFrame::didReceiveData ends at "+System.currentTimeMillis());
+< 		}
+< 		if (mKeyStoreHandler != null) mKeyStoreHandler.didReceiveData(data, size);
+---
+>         if (mKeyStoreHandler != null) mKeyStoreHandler.didReceiveData(data, size);
+19,26d18
+< //mobileDomains:
+< import android.content.pm.PackageManager;
+< import java.util.Timer;
+< import java.util.TimerTask;
+< import android.widget.Toast;
+< import android.app.AlertDialog;
+< import android.content.DialogInterface;
+< 
+1191,1222d1182
+< 	//mobileDomains: alert dialog
+< 	private void showAlert(String msg) {
+<         AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(mContext);
+< 
+<         // set title
+<         alertDialogBuilder.setTitle("");
+< 
+<         // set dialog message
+<         alertDialogBuilder
+<         .setMessage(msg)
+<         .setCancelable(false)
+<         .setPositiveButton("I got it",new DialogInterface.OnClickListener() {
+<             public void onClick(DialogInterface dialog,int id) {
+< 				// if this button is clicked, just close
+<                 // the dialog box and do nothing
+<                 dialog.cancel();
+<             }
+<         });
+<         /*.setNegativeButton("No",new DialogInterface.OnClickListener() {
+<             public void onClick(DialogInterface dialog,int id) {
+<                 // if this button is clicked, just close
+<                 // the dialog box and do nothing
+<                 dialog.cancel();
+<             }
+<         })*/
+< 
+<         // create alert dialog
+<         AlertDialog alertDialog = alertDialogBuilder.create();
+< 
+<         // show it
+<         alertDialog.show();
+<     }
+1227,1292c1187
+< 		//mobileDomains:
+< 		if (size > 0 && size < 1000) {
+< 			Log.d("mobileDomains","BrowserFrame::didReceiveData is called at "+System.currentTimeMillis());
+< 
+< 			String s = new String(data);
+< 			String senderOrigin = null,recipientOrigin = null;
+< 			PackageManager pm = mContext.getPackageManager();
+< 			if (s.startsWith("Location:")) { //it is Location header
+< 				int i = s.indexOf("->");
+< 				String url = s.substring("Location:".length(),i);
+< 				senderOrigin = Log.getSchmeAndHostFromURL(url);
+< 				recipientOrigin = Log.getSchmeAndHostFromURL(s.substring(i+2));
+< 			} else if (s.startsWith("Response:")) { //it is response body
+< 				int i = s.indexOf("->");
+< 				String url = s.substring("Response:".length(),i);
+< 				senderOrigin = Log.getSchmeAndHostFromURL(url);
+< 				String response = s.substring(i+2);
+< 				String start_sig = "window.location.href=\"";
+< 				i = response.indexOf(start_sig);
+< 				if (i >= 0) {
+< 					i += start_sig.length();
+< 					url = response.substring(i,response.indexOf("\"",i));
+< 					url = url.replace("\\/\\/","//");
+< 					Log.d("mobileDomains","BrowserFrame::redirect to "+url);
+< 					recipientOrigin = Log.getSchmeAndHostFromURL(url);
+< 				}
+< 			}
+< 			if (senderOrigin != null && recipientOrigin != null) {
+< 				String appOrigin = "app://" + mContext.getPackageName();
+< 				if (appOrigin.compareTo("app://com.android.browser") == 0) { //it is in browser
+< 					if (!pm.checkOriginPolicy(PackageManager.CHECK_RECIPIENT_WEB,senderOrigin,recipientOrigin,mContext.getPackageName())) { //policy check passed
+< 						//enforce the policy to block the message
+< 						/*mBlockMessages = true;
+< 						mCallbackProxy.blockMessages(true);
+< 						//Toast.makeText(mContext,"Access denied according to the origin policy of "+senderOrigin,Toast.LENGTH_LONG).show();
+< 						//showAlert("Access denied according to the origin policy of "+senderOrigin);
+< 						TimerTask task = new TimerTask() {
+< 							@Override
+< 							public void run() {
+< 								//stop blocking messages
+< 								mBlockMessages = false;
+< 								mCallbackProxy.blockMessages(false);
+< 							}
+< 						};
+< 						Timer timer = new Timer();
+< 						timer.schedule(task,2000);*/
+< 						//mCallbackProxy.onJsAlert("","Access denied according to the origin policy of "+senderOrigin);
+< 					}
+< 				}
+< 
+< 				Log.d("mobileDomains","BrowserFrame::didReceiveData checkOriginPolicy ends at "+System.currentTimeMillis());
+< 				return;
+< 			} else if (s.startsWith("mobile-allowed-origins:")) { //the header for origin policy is present
+< 				int i = s.indexOf("->");
+< 				String url = s.substring("mobile-allowed-origins:".length(),i);
+< 				senderOrigin = Log.getSchmeAndHostFromURL(url);
+< 				String allowedOrigins = s.substring(i+2);
+< 				pm.setOriginPolicy(PackageManager.SPECIFY_RECIPIENT_ORIGINS_WEB,senderOrigin,allowedOrigins,mContext.getPackageName()); //set policy. there is no need for entry point
+< 
+< 				Log.d("mobileDomains","BrowserFrame::didReceiveData setOriginPolicy ends at "+System.currentTimeMillis());
+< 				return;
+< 			}
+< 
+< 			Log.d("mobileDomains","BrowserFrame::didReceiveData ends at "+System.currentTimeMillis());
+< 		}
+< 		if (mKeyStoreHandler != null) mKeyStoreHandler.didReceiveData(data, size);
+---
+>         if (mKeyStoreHandler != null) mKeyStoreHandler.didReceiveData(data, size);
+19,26d18
+< //mobileDomains:
+< import android.content.pm.PackageManager;
+< import java.util.Timer;
+< import java.util.TimerTask;
+< import android.widget.Toast;
+< import android.app.AlertDialog;
+< import android.content.DialogInterface;
+< 
+1191,1222d1182
+< 	//mobileDomains: alert dialog
+< 	private void showAlert(String msg) {
+<         AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(mContext);
+< 
+<         // set title
+<         alertDialogBuilder.setTitle("");
+< 
+<         // set dialog message
+<         alertDialogBuilder
+<         .setMessage(msg)
+<         .setCancelable(false)
+<         .setPositiveButton("I got it",new DialogInterface.OnClickListener() {
+<             public void onClick(DialogInterface dialog,int id) {
+< 				// if this button is clicked, just close
+<                 // the dialog box and do nothing
+<                 dialog.cancel();
+<             }
+<         });
+<         /*.setNegativeButton("No",new DialogInterface.OnClickListener() {
+<             public void onClick(DialogInterface dialog,int id) {
+<                 // if this button is clicked, just close
+<                 // the dialog box and do nothing
+<                 dialog.cancel();
+<             }
+<         })*/
+< 
+<         // create alert dialog
+<         AlertDialog alertDialog = alertDialogBuilder.create();
+< 
+<         // show it
+<         alertDialog.show();
+<     }
+1227,1292c1187
+< 		//mobileDomains:
+< 		if (size > 0 && size < 1000) {
+< 			Log.d("mobileDomains","BrowserFrame::didReceiveData is called at "+System.currentTimeMillis());
+< 
+< 			String s = new String(data);
+< 			String senderOrigin = null,recipientOrigin = null;
+< 			PackageManager pm = mContext.getPackageManager();
+< 			if (s.startsWith("Location:")) { //it is Location header
+< 				int i = s.indexOf("->");
+< 				String url = s.substring("Location:".length(),i);
+< 				senderOrigin = Log.getSchmeAndHostFromURL(url);
+< 				recipientOrigin = Log.getSchmeAndHostFromURL(s.substring(i+2));
+< 			} else if (s.startsWith("Response:")) { //it is response body
+< 				int i = s.indexOf("->");
+< 				String url = s.substring("Response:".length(),i);
+< 				senderOrigin = Log.getSchmeAndHostFromURL(url);
+< 				String response = s.substring(i+2);
+< 				String start_sig = "window.location.href=\"";
+< 				i = response.indexOf(start_sig);
+< 				if (i >= 0) {
+< 					i += start_sig.length();
+< 					url = response.substring(i,response.indexOf("\"",i));
+< 					url = url.replace("\\/\\/","//");
+< 					Log.d("mobileDomains","BrowserFrame::redirect to "+url);
+< 					recipientOrigin = Log.getSchmeAndHostFromURL(url);
+< 				}
+< 			}
+< 			if (senderOrigin != null && recipientOrigin != null) {
+< 				String appOrigin = "app://" + mContext.getPackageName();
+< 				if (appOrigin.compareTo("app://com.android.browser") == 0) { //it is in browser
+< 					if (!pm.checkOriginPolicy(PackageManager.CHECK_RECIPIENT_WEB,senderOrigin,recipientOrigin,mContext.getPackageName())) { //policy check passed
+< 						//enforce the policy to block the message
+< 						/*mBlockMessages = true;
+< 						mCallbackProxy.blockMessages(true);
+< 						//Toast.makeText(mContext,"Access denied according to the origin policy of "+senderOrigin,Toast.LENGTH_LONG).show();
+< 						//showAlert("Access denied according to the origin policy of "+senderOrigin);
+< 						TimerTask task = new TimerTask() {
+< 							@Override
+< 							public void run() {
+< 								//stop blocking messages
+< 								mBlockMessages = false;
+< 								mCallbackProxy.blockMessages(false);
+< 							}
+< 						};
+< 						Timer timer = new Timer();
+< 						timer.schedule(task,2000);*/
+< 						//mCallbackProxy.onJsAlert("","Access denied according to the origin policy of "+senderOrigin);
+< 					}
+< 				}
+< 
+< 				Log.d("mobileDomains","BrowserFrame::didReceiveData checkOriginPolicy ends at "+System.currentTimeMillis());
+< 				return;
+< 			} else if (s.startsWith("mobile-allowed-origins:")) { //the header for origin policy is present
+< 				int i = s.indexOf("->");
+< 				String url = s.substring("mobile-allowed-origins:".length(),i);
+< 				senderOrigin = Log.getSchmeAndHostFromURL(url);
+< 				String allowedOrigins = s.substring(i+2);
+< 				pm.setOriginPolicy(PackageManager.SPECIFY_RECIPIENT_ORIGINS_WEB,senderOrigin,allowedOrigins,mContext.getPackageName()); //set policy. there is no need for entry point
+< 
+< 				Log.d("mobileDomains","BrowserFrame::didReceiveData setOriginPolicy ends at "+System.currentTimeMillis());
+< 				return;
+< 			}
+< 
+< 			Log.d("mobileDomains","BrowserFrame::didReceiveData ends at "+System.currentTimeMillis());
+< 		}
+< 		if (mKeyStoreHandler != null) mKeyStoreHandler.didReceiveData(data, size);
+---
+>         if (mKeyStoreHandler != null) mKeyStoreHandler.didReceiveData(data, size);

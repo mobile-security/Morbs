@@ -1,0 +1,54 @@
+188,194c188
+<             //return new Thread(r, "AsyncTask #" + mCount.getAndIncrement());
+< 
+< 			//mobileDomains:
+< 			String pkgName = Thread.currentThread().getThreadGroup().getPackageName();
+< 			Thread td = new Thread(r, "AsyncTask #" + mCount.getAndIncrement());
+< 			if (pkgName != null) td.getThreadGroup().setPackageName(pkgName);
+< 			return td;
+---
+>             return new Thread(r, "AsyncTask #" + mCount.getAndIncrement());
+232c226
+<         public synchronized void execute(final Runnable r) { //mobileDomains: when invoked, it should be still on UI thread
+---
+>         public synchronized void execute(final Runnable r) {
+527c521
+<      * <p>This method must be invoked on the UI thread. mobileDomains: this API must be run on UI thread
+---
+>      * <p>This method must be invoked on the UI thread.
+188,194c188
+<             //return new Thread(r, "AsyncTask #" + mCount.getAndIncrement());
+< 
+< 			//mobileDomains:
+< 			String pkgName = Thread.currentThread().getThreadGroup().getPackageName();
+< 			Thread td = new Thread(r, "AsyncTask #" + mCount.getAndIncrement());
+< 			if (pkgName != null) td.getThreadGroup().setPackageName(pkgName);
+< 			return td;
+---
+>             return new Thread(r, "AsyncTask #" + mCount.getAndIncrement());
+232c226
+<         public synchronized void execute(final Runnable r) { //mobileDomains: when invoked, it should be still on UI thread
+---
+>         public synchronized void execute(final Runnable r) {
+527c521
+<      * <p>This method must be invoked on the UI thread. mobileDomains: this API must be run on UI thread
+---
+>      * <p>This method must be invoked on the UI thread.
+188,194c188
+<             //return new Thread(r, "AsyncTask #" + mCount.getAndIncrement());
+< 
+< 			//mobileDomains:
+< 			String pkgName = Thread.currentThread().getThreadGroup().getPackageName();
+< 			Thread td = new Thread(r, "AsyncTask #" + mCount.getAndIncrement());
+< 			if (pkgName != null) td.getThreadGroup().setPackageName(pkgName);
+< 			return td;
+---
+>             return new Thread(r, "AsyncTask #" + mCount.getAndIncrement());
+232c226
+<         public synchronized void execute(final Runnable r) { //mobileDomains: when invoked, it should be still on UI thread
+---
+>         public synchronized void execute(final Runnable r) {
+527c521
+<      * <p>This method must be invoked on the UI thread. mobileDomains: this API must be run on UI thread
+---
+>      * <p>This method must be invoked on the UI thread.

@@ -1,0 +1,399 @@
+62,97d61
+< 	//mobileDomains:
+<     /**
+<      * @hide
+<      */
+< 	public static final int SPECIFY_RECIPIENT_ORIGINS_HTTPCLIENT = 9;
+<     /**
+<      * @hide
+<      */
+< 	public static final int CHECK_RECIPIENT_HTTPCLIENT = 9;
+<     /**
+<      * @hide
+<      */
+< 	public static Map<String,String> fileOrigin = new HashMap<String,String>();
+< 
+< 	private static Map<String,Map> allowedRecipientOrigins = new HashMap<String,Map>();
+< 
+< 	//mobileDomains: performance test
+<     /**
+<      * @hide
+<      */
+< 	public static long intentStartTime = 0;
+<     /**
+<      * @hide
+<      */
+< 	public static long intentCheckEndTime = 0;
+<     /**
+<      * @hide
+<      */
+< 	public static long intentEndTime = 0;
+< 
+< 	//mobileDomains: debug
+< 	/**
+<      * @hide
+<      */
+< 	public static boolean debugForMobileDomains = false;
+< 
+173d136
+< 
+470,472d432
+< 
+< 		//mobileDomains: trace packageName
+< 		//this.packageName = currentThread.getPackageName();
+608,692d567
+< 	//mobileDomains: 
+< 	/**
+< 	 * @hide
+< 	 */
+<     public static void setOriginPolicy(int cmd,String targetOrigin,String allowedOrigins,String entryPoint) {
+< 		//Log.d("mobileDomains","ApplicationPackageManager::setOriginPolicy(cmd="+cmd+",targetOrigin='"+targetOrigin+"',allowedOrigins='"+allowedOrigins+"',entryPoint='"+entryPoint+"')");
+< 		switch (cmd) {
+< 			case SPECIFY_RECIPIENT_ORIGINS_HTTPCLIENT: {
+< 				Map<String,Map> b = allowedRecipientOrigins.get("httpclient");
+< 				if (b == null) {
+< 					b = new HashMap<String,Map>();
+< 					allowedRecipientOrigins.put("httpclient",b);
+< 				}
+< 				Map<String,Map> record = b.get(targetOrigin); //look up the record by targetOrigin
+< 				if (record == null) { //the record does not exist, we create one
+< 					record = new HashMap<String,Map>();
+< 					b.put(targetOrigin,record);
+< 				}
+< 				record.put("decodedAllowedRecipientOrigins",decodeOriginPolicy(allowedOrigins));
+< 				break;
+< 			}
+< 		}
+<     }
+< 
+< 	private static Map decodeOriginPolicy(String allowedOrigins) {
+< 		Map result = new HashMap<String,String[]>();
+< 		//currently, we assume there is only letters, number, '.', ',', "://", and '*' in allowedOrigins.
+< 		//split with ','
+< 		String[] a = allowedOrigins.split(",");
+< 		int countOfreg = 0; //count of regular expressions
+< 		String[] dumbValue = new String[1];
+< 		for (int i=0;i<a.length;i++) {
+< 			if (!a[i].contains("*")) { //it is a concrete domain name
+< 				
+< 				result.put(a[i],dumbValue);
+< 			} else { //it is a regular expression
+< 				countOfreg++;
+< 			}
+< 		}
+< 
+< 		//create regular expression string array
+< 		if (countOfreg > 0) {
+< 			String[] reg = new String[countOfreg];
+< 			countOfreg = 0;
+< 			for (int i=0;i<a.length;i++) {
+< 				if (a[i].contains("*")) { //it is a regular expression
+< 					reg[countOfreg++] = a[i];
+< 				}
+< 			}
+< 			result.put("regularExpressions",reg);
+< 		}
+< 		return result;
+< 	}
+< 
+< 	/**
+< 	 * @hide
+< 	 */
+<     public static boolean checkOriginPolicy(int cmd,String senderOrigin,String recipientOrigin,String entryPoint) {
+< 		switch (cmd) {
+< 			case CHECK_RECIPIENT_HTTPCLIENT: {
+< 				Map<String,Map> b = allowedRecipientOrigins.get("httpclient");
+< 				if (b == null) {
+< 					b = new HashMap<String,Map>();
+< 					allowedRecipientOrigins.put("httpclient",b);
+< 				}
+< 				Map<String,Map> record = b.get(senderOrigin); //look up the record by senderOrigin
+< 				if (record != null) { //the record exists
+< 					Map<String,Map> decodedAllowedRecipientOrigins = record.get("decodedAllowedRecipientOrigins");
+< 					if (decodedAllowedRecipientOrigins.containsKey(recipientOrigin)) { //sender origin contained in the deocoded allowed origins as concrete value
+< 						return true;
+< 					} else {
+< 						//todo: check senderOrigin against regular expressions
+< 
+< 						//regular expression check fails
+< 						return false;
+< 					}
+< 				}
+< 				//when no policy exists, we allow
+< 				return true;
+< 			}
+< 		}
+< 		//todo: throw exception because the execution should not come here
+< 		return false;
+<     }
+< 
+966,968d840
+< 			//mobileDomains: trace packageName
+< 			//this.packageName = currentThread().getPackageName();
+< 
+62,97d61
+< 	//mobileDomains:
+<     /**
+<      * @hide
+<      */
+< 	public static final int SPECIFY_RECIPIENT_ORIGINS_HTTPCLIENT = 9;
+<     /**
+<      * @hide
+<      */
+< 	public static final int CHECK_RECIPIENT_HTTPCLIENT = 9;
+<     /**
+<      * @hide
+<      */
+< 	public static Map<String,String> fileOrigin = new HashMap<String,String>();
+< 
+< 	private static Map<String,Map> allowedRecipientOrigins = new HashMap<String,Map>();
+< 
+< 	//mobileDomains: performance test
+<     /**
+<      * @hide
+<      */
+< 	public static long intentStartTime = 0;
+<     /**
+<      * @hide
+<      */
+< 	public static long intentCheckEndTime = 0;
+<     /**
+<      * @hide
+<      */
+< 	public static long intentEndTime = 0;
+< 
+< 	//mobileDomains: debug
+< 	/**
+<      * @hide
+<      */
+< 	public static boolean debugForMobileDomains = false;
+< 
+173d136
+< 
+470,472d432
+< 
+< 		//mobileDomains: trace packageName
+< 		//this.packageName = currentThread.getPackageName();
+608,692d567
+< 	//mobileDomains: 
+< 	/**
+< 	 * @hide
+< 	 */
+<     public static void setOriginPolicy(int cmd,String targetOrigin,String allowedOrigins,String entryPoint) {
+< 		//Log.d("mobileDomains","ApplicationPackageManager::setOriginPolicy(cmd="+cmd+",targetOrigin='"+targetOrigin+"',allowedOrigins='"+allowedOrigins+"',entryPoint='"+entryPoint+"')");
+< 		switch (cmd) {
+< 			case SPECIFY_RECIPIENT_ORIGINS_HTTPCLIENT: {
+< 				Map<String,Map> b = allowedRecipientOrigins.get("httpclient");
+< 				if (b == null) {
+< 					b = new HashMap<String,Map>();
+< 					allowedRecipientOrigins.put("httpclient",b);
+< 				}
+< 				Map<String,Map> record = b.get(targetOrigin); //look up the record by targetOrigin
+< 				if (record == null) { //the record does not exist, we create one
+< 					record = new HashMap<String,Map>();
+< 					b.put(targetOrigin,record);
+< 				}
+< 				record.put("decodedAllowedRecipientOrigins",decodeOriginPolicy(allowedOrigins));
+< 				break;
+< 			}
+< 		}
+<     }
+< 
+< 	private static Map decodeOriginPolicy(String allowedOrigins) {
+< 		Map result = new HashMap<String,String[]>();
+< 		//currently, we assume there is only letters, number, '.', ',', "://", and '*' in allowedOrigins.
+< 		//split with ','
+< 		String[] a = allowedOrigins.split(",");
+< 		int countOfreg = 0; //count of regular expressions
+< 		String[] dumbValue = new String[1];
+< 		for (int i=0;i<a.length;i++) {
+< 			if (!a[i].contains("*")) { //it is a concrete domain name
+< 				
+< 				result.put(a[i],dumbValue);
+< 			} else { //it is a regular expression
+< 				countOfreg++;
+< 			}
+< 		}
+< 
+< 		//create regular expression string array
+< 		if (countOfreg > 0) {
+< 			String[] reg = new String[countOfreg];
+< 			countOfreg = 0;
+< 			for (int i=0;i<a.length;i++) {
+< 				if (a[i].contains("*")) { //it is a regular expression
+< 					reg[countOfreg++] = a[i];
+< 				}
+< 			}
+< 			result.put("regularExpressions",reg);
+< 		}
+< 		return result;
+< 	}
+< 
+< 	/**
+< 	 * @hide
+< 	 */
+<     public static boolean checkOriginPolicy(int cmd,String senderOrigin,String recipientOrigin,String entryPoint) {
+< 		switch (cmd) {
+< 			case CHECK_RECIPIENT_HTTPCLIENT: {
+< 				Map<String,Map> b = allowedRecipientOrigins.get("httpclient");
+< 				if (b == null) {
+< 					b = new HashMap<String,Map>();
+< 					allowedRecipientOrigins.put("httpclient",b);
+< 				}
+< 				Map<String,Map> record = b.get(senderOrigin); //look up the record by senderOrigin
+< 				if (record != null) { //the record exists
+< 					Map<String,Map> decodedAllowedRecipientOrigins = record.get("decodedAllowedRecipientOrigins");
+< 					if (decodedAllowedRecipientOrigins.containsKey(recipientOrigin)) { //sender origin contained in the deocoded allowed origins as concrete value
+< 						return true;
+< 					} else {
+< 						//todo: check senderOrigin against regular expressions
+< 
+< 						//regular expression check fails
+< 						return false;
+< 					}
+< 				}
+< 				//when no policy exists, we allow
+< 				return true;
+< 			}
+< 		}
+< 		//todo: throw exception because the execution should not come here
+< 		return false;
+<     }
+< 
+966,968d840
+< 			//mobileDomains: trace packageName
+< 			//this.packageName = currentThread().getPackageName();
+< 
+62,97d61
+< 	//mobileDomains:
+<     /**
+<      * @hide
+<      */
+< 	public static final int SPECIFY_RECIPIENT_ORIGINS_HTTPCLIENT = 9;
+<     /**
+<      * @hide
+<      */
+< 	public static final int CHECK_RECIPIENT_HTTPCLIENT = 9;
+<     /**
+<      * @hide
+<      */
+< 	public static Map<String,String> fileOrigin = new HashMap<String,String>();
+< 
+< 	private static Map<String,Map> allowedRecipientOrigins = new HashMap<String,Map>();
+< 
+< 	//mobileDomains: performance test
+<     /**
+<      * @hide
+<      */
+< 	public static long intentStartTime = 0;
+<     /**
+<      * @hide
+<      */
+< 	public static long intentCheckEndTime = 0;
+<     /**
+<      * @hide
+<      */
+< 	public static long intentEndTime = 0;
+< 
+< 	//mobileDomains: debug
+< 	/**
+<      * @hide
+<      */
+< 	public static boolean debugForMobileDomains = false;
+< 
+173d136
+< 
+470,472d432
+< 
+< 		//mobileDomains: trace packageName
+< 		//this.packageName = currentThread.getPackageName();
+608,692d567
+< 	//mobileDomains: 
+< 	/**
+< 	 * @hide
+< 	 */
+<     public static void setOriginPolicy(int cmd,String targetOrigin,String allowedOrigins,String entryPoint) {
+< 		//Log.d("mobileDomains","ApplicationPackageManager::setOriginPolicy(cmd="+cmd+",targetOrigin='"+targetOrigin+"',allowedOrigins='"+allowedOrigins+"',entryPoint='"+entryPoint+"')");
+< 		switch (cmd) {
+< 			case SPECIFY_RECIPIENT_ORIGINS_HTTPCLIENT: {
+< 				Map<String,Map> b = allowedRecipientOrigins.get("httpclient");
+< 				if (b == null) {
+< 					b = new HashMap<String,Map>();
+< 					allowedRecipientOrigins.put("httpclient",b);
+< 				}
+< 				Map<String,Map> record = b.get(targetOrigin); //look up the record by targetOrigin
+< 				if (record == null) { //the record does not exist, we create one
+< 					record = new HashMap<String,Map>();
+< 					b.put(targetOrigin,record);
+< 				}
+< 				record.put("decodedAllowedRecipientOrigins",decodeOriginPolicy(allowedOrigins));
+< 				break;
+< 			}
+< 		}
+<     }
+< 
+< 	private static Map decodeOriginPolicy(String allowedOrigins) {
+< 		Map result = new HashMap<String,String[]>();
+< 		//currently, we assume there is only letters, number, '.', ',', "://", and '*' in allowedOrigins.
+< 		//split with ','
+< 		String[] a = allowedOrigins.split(",");
+< 		int countOfreg = 0; //count of regular expressions
+< 		String[] dumbValue = new String[1];
+< 		for (int i=0;i<a.length;i++) {
+< 			if (!a[i].contains("*")) { //it is a concrete domain name
+< 				
+< 				result.put(a[i],dumbValue);
+< 			} else { //it is a regular expression
+< 				countOfreg++;
+< 			}
+< 		}
+< 
+< 		//create regular expression string array
+< 		if (countOfreg > 0) {
+< 			String[] reg = new String[countOfreg];
+< 			countOfreg = 0;
+< 			for (int i=0;i<a.length;i++) {
+< 				if (a[i].contains("*")) { //it is a regular expression
+< 					reg[countOfreg++] = a[i];
+< 				}
+< 			}
+< 			result.put("regularExpressions",reg);
+< 		}
+< 		return result;
+< 	}
+< 
+< 	/**
+< 	 * @hide
+< 	 */
+<     public static boolean checkOriginPolicy(int cmd,String senderOrigin,String recipientOrigin,String entryPoint) {
+< 		switch (cmd) {
+< 			case CHECK_RECIPIENT_HTTPCLIENT: {
+< 				Map<String,Map> b = allowedRecipientOrigins.get("httpclient");
+< 				if (b == null) {
+< 					b = new HashMap<String,Map>();
+< 					allowedRecipientOrigins.put("httpclient",b);
+< 				}
+< 				Map<String,Map> record = b.get(senderOrigin); //look up the record by senderOrigin
+< 				if (record != null) { //the record exists
+< 					Map<String,Map> decodedAllowedRecipientOrigins = record.get("decodedAllowedRecipientOrigins");
+< 					if (decodedAllowedRecipientOrigins.containsKey(recipientOrigin)) { //sender origin contained in the deocoded allowed origins as concrete value
+< 						return true;
+< 					} else {
+< 						//todo: check senderOrigin against regular expressions
+< 
+< 						//regular expression check fails
+< 						return false;
+< 					}
+< 				}
+< 				//when no policy exists, we allow
+< 				return true;
+< 			}
+< 		}
+< 		//todo: throw exception because the execution should not come here
+< 		return false;
+<     }
+< 
+966,968d840
+< 			//mobileDomains: trace packageName
+< 			//this.packageName = currentThread().getPackageName();
+< 

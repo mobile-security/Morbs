@@ -1,0 +1,78 @@
+26,50d25
+<     //mobileDomains: 
+<     private String allowedOrigins = null;
+< 
+<     /** 
+<      * mobileDomains: We define this constructor instead of setAllowedOrigins API because this makes the programming on callbacks easier.
+<      *@hide  should be public to app developers when released
+<      */
+<     public WebViewClient(String allowedOrigins) {
+<         this.allowedOrigins = allowedOrigins;
+<     }
+<     public WebViewClient() {
+<     }
+< 
+<     /** 
+<      *@hide  should be public to app developers when released
+<      */
+<     public String getAllowedOrigins() {
+<         return this.allowedOrigins;
+<     }
+< 	/** 
+<      *@hide  should be public to app developers when released
+<      */
+<     public void setAllowedOrigins(String allowedOrigins) {
+<         this.allowedOrigins = allowedOrigins;
+<     }
+26,50d25
+<     //mobileDomains: 
+<     private String allowedOrigins = null;
+< 
+<     /** 
+<      * mobileDomains: We define this constructor instead of setAllowedOrigins API because this makes the programming on callbacks easier.
+<      *@hide  should be public to app developers when released
+<      */
+<     public WebViewClient(String allowedOrigins) {
+<         this.allowedOrigins = allowedOrigins;
+<     }
+<     public WebViewClient() {
+<     }
+< 
+<     /** 
+<      *@hide  should be public to app developers when released
+<      */
+<     public String getAllowedOrigins() {
+<         return this.allowedOrigins;
+<     }
+< 	/** 
+<      *@hide  should be public to app developers when released
+<      */
+<     public void setAllowedOrigins(String allowedOrigins) {
+<         this.allowedOrigins = allowedOrigins;
+<     }
+26,50d25
+<     //mobileDomains: 
+<     private String allowedOrigins = null;
+< 
+<     /** 
+<      * mobileDomains: We define this constructor instead of setAllowedOrigins API because this makes the programming on callbacks easier.
+<      *@hide  should be public to app developers when released
+<      */
+<     public WebViewClient(String allowedOrigins) {
+<         this.allowedOrigins = allowedOrigins;
+<     }
+<     public WebViewClient() {
+<     }
+< 
+<     /** 
+<      *@hide  should be public to app developers when released
+<      */
+<     public String getAllowedOrigins() {
+<         return this.allowedOrigins;
+<     }
+< 	/** 
+<      *@hide  should be public to app developers when released
+<      */
+<     public void setAllowedOrigins(String allowedOrigins) {
+<         this.allowedOrigins = allowedOrigins;
+<     }

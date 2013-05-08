@@ -1,0 +1,66 @@
+71,83d70
+< 	//mobileDomains: label the origin of the file
+< 	/**
+< 	 *
+< 	 */
+< 	private void labelOrigin(String filename) {
+< 		String pkgName = Thread.currentThread().getThreadGroup().getPackageName();
+< 		if (pkgName != null) {
+< 			String origin = "app://"+pkgName;
+< 			Thread.fileOrigin.put(filename,origin); //the origin info is in Thread
+< 			//Log.d("mobileDomains","FileWriter::labelOrigin(), origin="+origin+",filename="+filename);
+< 		}
+< 	}
+< 
+94,96d80
+< 
+< 		//mobileDomains:
+< 		labelOrigin(filename);
+113,115d96
+< 
+< 		//mobileDomains:
+< 		labelOrigin(filename);
+71,83d70
+< 	//mobileDomains: label the origin of the file
+< 	/**
+< 	 *
+< 	 */
+< 	private void labelOrigin(String filename) {
+< 		String pkgName = Thread.currentThread().getThreadGroup().getPackageName();
+< 		if (pkgName != null) {
+< 			String origin = "app://"+pkgName;
+< 			Thread.fileOrigin.put(filename,origin); //the origin info is in Thread
+< 			//Log.d("mobileDomains","FileWriter::labelOrigin(), origin="+origin+",filename="+filename);
+< 		}
+< 	}
+< 
+94,96d80
+< 
+< 		//mobileDomains:
+< 		labelOrigin(filename);
+113,115d96
+< 
+< 		//mobileDomains:
+< 		labelOrigin(filename);
+71,83d70
+< 	//mobileDomains: label the origin of the file
+< 	/**
+< 	 *
+< 	 */
+< 	private void labelOrigin(String filename) {
+< 		String pkgName = Thread.currentThread().getThreadGroup().getPackageName();
+< 		if (pkgName != null) {
+< 			String origin = "app://"+pkgName;
+< 			Thread.fileOrigin.put(filename,origin); //the origin info is in Thread
+< 			//Log.d("mobileDomains","FileWriter::labelOrigin(), origin="+origin+",filename="+filename);
+< 		}
+< 	}
+< 
+94,96d80
+< 
+< 		//mobileDomains:
+< 		labelOrigin(filename);
+113,115d96
+< 
+< 		//mobileDomains:
+< 		labelOrigin(filename);

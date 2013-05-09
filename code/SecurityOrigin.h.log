@@ -12,17 +12,3 @@
 <     std::map<std::string, std::string> m_fileOriginsMap;
 <     HashMap<String, String> m_wtfFileOriginHashMap;
 < 
-36,41d35
-< //mobileDomains:
-< #include <string>
-< #include <map>
-< #include <wtf/HashMap.h>
-< #include "KURL.h"
-< 
-224,229d217
-< 
-< 	//mobileDomains:
-<     KURL m_kurl;
-<     std::map<std::string, std::string> m_fileOriginsMap;
-<     HashMap<String, String> m_wtfFileOriginHashMap;
-< 

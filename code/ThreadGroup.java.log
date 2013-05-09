@@ -18,57 +18,7 @@
 <     public void setPackageName(String packageName) {
 < 		if (this.packageName != null) {
 < 			if (this.packageName.compareTo(packageName) == 0) return; //no need to change
-< 			throw new NullPointerException("mobileDomains: packageName mismatch: this.packageName="+this.packageName+",packageName="+packageName);
-< 		}
-<         this.packageName = packageName;
-<     }
-< 
-50,52d49
-< 	//mobileDomains:
-< 	private String packageName = null;
-< 
-110,129d106
-< 	//mobileDomains: get/set package name
-<     /**
-<      * 
-< 	 * @hide
-<      */
-<     public String getPackageName() {
-<         return packageName;
-<     }
-<     /**
-<      * 
-< 	 * @hide
-<      */
-<     public void setPackageName(String packageName) {
-< 		if (this.packageName != null) {
-< 			if (this.packageName.compareTo(packageName) == 0) return; //no need to change
-< 			throw new NullPointerException("mobileDomains: packageName mismatch: this.packageName="+this.packageName+",packageName="+packageName);
-< 		}
-<         this.packageName = packageName;
-<     }
-< 
-50,52d49
-< 	//mobileDomains:
-< 	private String packageName = null;
-< 
-110,129d106
-< 	//mobileDomains: get/set package name
-<     /**
-<      * 
-< 	 * @hide
-<      */
-<     public String getPackageName() {
-<         return packageName;
-<     }
-<     /**
-<      * 
-< 	 * @hide
-<      */
-<     public void setPackageName(String packageName) {
-< 		if (this.packageName != null) {
-< 			if (this.packageName.compareTo(packageName) == 0) return; //no need to change
-< 			throw new NullPointerException("mobileDomains: packageName mismatch: this.packageName="+this.packageName+",packageName="+packageName);
+< 			//throw new NullPointerException("mobileDomains: packageName mismatch: this.packageName="+this.packageName+",packageName="+packageName);
 < 		}
 <         this.packageName = packageName;
 <     }

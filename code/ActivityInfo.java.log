@@ -16,39 +16,3 @@
 <      * {@hide}
 <      */
 < 	public Bundle allowedSenderOriginsForScheme = new Bundle();
-23,25d22
-< //mobileDomains:
-< import android.os.Bundle;
-< 
-74,86d70
-< 
-<     /**
-<      * mobileDomains: 
-<      * Optional origins of other apps which want to to access this
-<      * Activity.  From the "allowedOrigins" attribute.
-<      * {@hide}
-<      */
-<     public String allowedSenderOrigins = null;
-< 	/**
-< 	 * 
-<      * {@hide}
-<      */
-< 	public Bundle allowedSenderOriginsForScheme = new Bundle();
-23,25d22
-< //mobileDomains:
-< import android.os.Bundle;
-< 
-74,86d70
-< 
-<     /**
-<      * mobileDomains: 
-<      * Optional origins of other apps which want to to access this
-<      * Activity.  From the "allowedOrigins" attribute.
-<      * {@hide}
-<      */
-<     public String allowedSenderOrigins = null;
-< 	/**
-< 	 * 
-<      * {@hide}
-<      */
-< 	public Bundle allowedSenderOriginsForScheme = new Bundle();

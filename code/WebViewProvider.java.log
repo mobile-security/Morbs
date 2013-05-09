@@ -1,9 +1,3 @@
 109,110d108
 <     public void setAllowedOrigins(String allowedOrigins); //mobileDomains: 
 < 
-109,110d108
-<     public void setAllowedOrigins(String allowedOrigins); //mobileDomains: 
-< 
-109,110d108
-<     public void setAllowedOrigins(String allowedOrigins); //mobileDomains: 
-< 

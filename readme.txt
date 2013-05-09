@@ -1,1 +1,1 @@
-The published code is a collection of diff files from Android 4.2.2. It records the code we added to Android in order to implement Morbs (mobile origin based security). We do not publish the source code of Android, which is available from Google.
+The published code is a collection of diff files from Android 4.2.2_r1 (latest version). It records the code we added to Android in order to implement Morbs (mobile origin based security). We do not publish the source code of Android, which is available from Google.
